@@ -24,7 +24,15 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run build
+      # cache do .next para builds mais rápidos/estáveis
+      - uses: actions/cache@0c907a75c2c80ebcb7f088228285e798b750cf8f # v4
+        with:
+          path: .next/cache
+          key: nextcache-${{ hashFiles('package-lock.json') }}-${{ hashFiles('app/**', 'components/**') }}
+          restore-keys: nextcache-${{ hashFiles('package-lock.json') }}-
+      # retry 3x: next/font às vezes estoura o fetch de fonts.gstatic.com no runner.
+      # NÃO é bypass — falha de verdade se as 3 tentativas falharem.
+      - run: npm run build || (sleep 8 && npm run build) || (sleep 16 && npm run build)
         env:
           NEXT_PUBLIC_BASE_PATH: /piero-garcia-site
           NEXT_PUBLIC_SITE_URL: https://luisroquette-labs.github.io/piero-garcia-site
