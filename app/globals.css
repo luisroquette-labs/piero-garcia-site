@@ -338,7 +338,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.
 /* site10x: cada seção ocupa uma tela; conteúdo centralizado; snap no topo */
 .section { min-height: 100svh; padding: 64px 0; position: relative; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
 .section > .wrap { width: min(var(--wrap), 92vw); }
-.section-head { max-width: 720px; margin-bottom: 32px; }
+.section-head { max-width: 720px; margin-bottom: 22px; }
 .section-head h2 { font-size: clamp(2rem, 4.6vw, 3.3rem); margin: 18px 0 0; }
 .section-head .lead { margin-top: 18px; }
 .section-head h2 .em { color: var(--muted); font-style: normal; font-weight: 800; }
