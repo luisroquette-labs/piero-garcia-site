@@ -343,6 +343,10 @@ body:has(.anchor-hero) .section {
   min-height: 100svh; padding: 64px 0; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start;
 }
 body:has(.anchor-hero) .section > .wrap { width: min(var(--wrap), 92vw); }
+/* Mobile: alinhar ao topo. Seção com muitos cards passa de uma tela no celular;
+   centralizar cortaria o topo. Ao topo, o conteúdo alto flui pra baixo (snap mobile
+   é proximity, não prende). Seção curta ainda ocupa a tela (min-height 100svh). */
+@media (max-width: 900px) { body:has(.anchor-hero) .section { justify-content: flex-start; } }
 .section-head { max-width: 720px; margin-bottom: 22px; }
 .section-head h2 { font-size: clamp(2rem, 4.6vw, 3.3rem); margin: 18px 0 0; }
 .section-head .lead { margin-top: 18px; }
