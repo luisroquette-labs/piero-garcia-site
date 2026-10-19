@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { nav, person, whatsappHref } from "../app/content";
 
 // Rodapé "halftone wordmark" (estilo kedhareswer/21st): wordmark gigante em pontos,
@@ -160,7 +161,7 @@ export default function SiteFooter() {
           <div className="hf-col">
             <span className="hf-h">Site</span>
             {nav.map((n) => (
-              <a key={n.href} href={n.href}>{n.label}</a>
+              <Link key={n.href} href={n.href}>{n.label}</Link>
             ))}
           </div>
           <div className="hf-col">
