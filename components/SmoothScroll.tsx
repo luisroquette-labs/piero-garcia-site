@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import Snap from "lenis/snap";
 import { initAudio } from "./sound";
 
 // Smooth-scroll com inércia (estilo das landing pages premium / Hotmart Launchpad).
@@ -27,6 +28,15 @@ export default function SmoothScroll() {
     };
     raf = requestAnimationFrame(loop);
 
+    // Snap magnético: a rolagem assenta no topo de cada seção (uma seção = uma tela).
+    // 'proximity' não prende seções que passam de uma tela; seções marcadas
+    // data-snap="skip" ficam de fora. Ver CLAUDE.md do site-10x.
+    const snap = new Snap(lenis, { type: "proximity", duration: 0.9, distanceThreshold: "25%" });
+    const snapEls = Array.from(
+      document.querySelectorAll<HTMLElement>(".anchor-hero, .filme-full, .section")
+    ).filter((el) => el.dataset.snap !== "skip");
+    snapEls.forEach((el) => snap.addElement(el, { align: ["start"] }));
+
     // Âncoras (#metodo, /#areas…): Lenis intercepta o scroll nativo, então
     // tratamos o clique manualmente com lenis.scrollTo (offset do header fixo).
     const onAnchorClick = (e: MouseEvent) => {
@@ -50,6 +60,7 @@ export default function SmoothScroll() {
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener("click", onAnchorClick);
+      snap.destroy();
       lenis.destroy();
     };
   }, []);
