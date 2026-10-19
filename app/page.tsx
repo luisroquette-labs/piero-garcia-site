@@ -2,6 +2,7 @@ import Link from "next/link";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import AnchorHero from "../components/AnchorHero";
+import FilmeSection from "../components/FilmeSection";
 import StatCounter from "../components/StatCounter";
 import Reveal from "../components/Reveal";
 import WavyRibbon from "../components/WavyRibbon";
@@ -28,6 +29,9 @@ export default function Home() {
 
       {/* HERO — estilo Anchor (vídeo full-bleed) */}
       <AnchorHero />
+
+      {/* FILME — vídeo de 25s (motion design) */}
+      <FilmeSection />
 
       {/* PROBLEMA — fileira curva streaming */}
       <section className="section" id="problema">
