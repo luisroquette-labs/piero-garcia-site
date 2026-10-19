@@ -139,7 +139,7 @@ export const automacao = {
   ],
 };
 
-// Áreas de atuação — carrossel (ScrollGallery). Capacidades reais, não cases com nome.
+// Áreas de atuação (features-2, linhas alternadas). Capacidades reais, não cases com nome.
 export const portfolio = {
   eyebrow: "Áreas de atuação",
   title: "Onde eu atuo na sua operação.",

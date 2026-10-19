@@ -27,8 +27,29 @@ export default function SmoothScroll() {
     };
     raf = requestAnimationFrame(loop);
 
+    // Âncoras (#metodo, /#areas…): Lenis intercepta o scroll nativo, então
+    // tratamos o clique manualmente com lenis.scrollTo (offset do header fixo).
+    const onAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const a = target?.closest?.('a[href*="#"]') as HTMLAnchorElement | null;
+      if (!a) return;
+      const href = a.getAttribute("href") || "";
+      const hashIdx = href.indexOf("#");
+      if (hashIdx < 0) return;
+      const path = href.slice(0, hashIdx);
+      if (path && path !== location.pathname && path !== "/") return; // outra página: deixa navegar
+      const id = href.slice(hashIdx);
+      if (id.length < 2) return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      lenis.scrollTo(el as HTMLElement, { offset: -72 });
+    };
+    document.addEventListener("click", onAnchorClick);
+
     return () => {
       cancelAnimationFrame(raf);
+      document.removeEventListener("click", onAnchorClick);
       lenis.destroy();
     };
   }, []);
