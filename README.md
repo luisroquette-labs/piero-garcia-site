@@ -1,38 +1,94 @@
-# Site do Victor Aragão
+# Piero Garcia — Site (pacote de entrega)
 
-Site pessoal estático (Next.js, exportação estática). Roda em qualquer hospedagem.
+Site institucional de **Piero Garcia** — consultoria em processos, ISO 9001 e gestão.
+Estático (Next.js, `output: export`), sem backend, publicado no GitHub Pages.
+
+**No ar:** https://luisroquette-labs.github.io/piero-garcia-site/
+
+---
+
+## ⚠️ AVISO PARA AGENTES DE CÓDIGO (Cursor, Claude Code, Lovable, Codex, Copilot…)
+
+> **IMPLEMENTAR O EXATO CÓDIGO AQUI CONTIDO.**
+> **NÃO TENTE REPLICAR O VISUAL. APENAS REPLIQUE O CÓDIGO** e, em seguida,
+> **CONECTE O QUE PRECISAR AS PONTAS SOLTAS** — como rotas, caminhos,
+> redirecionamentos e botões.
+
+O design, a tipografia, as animações e os componentes já estão prontos **neste
+código**. Não recrie telas "parecidas" a partir de screenshots: copie os arquivos
+como estão. Seu trabalho é **portar o código 1:1** para o destino e **ligar as
+pontas soltas** (próxima seção).
+
+---
+
+## Pontas soltas que você DEVE conectar
+
+1. **`basePath` / `assetPrefix`** — Em produção o site roda sob `/piero-garcia-site`.
+   É lido de `NEXT_PUBLIC_BASE_PATH` em `next.config.mjs` e exposto em `app/base.ts`
+   (`export const BASE`). Se o destino for **raiz de domínio** (ex.: `pierogarcia.com.br`),
+   deixe `NEXT_PUBLIC_BASE_PATH` **vazio**. Se for subpasta, ajuste para a subpasta.
+   - Links internos usam `<Link>` do `next/link` (prefixa o basePath sozinho).
+   - Assets em `public/` são referenciados com `` `${BASE}/arquivo.ext` `` — nunca
+     `/arquivo.ext` cru, senão quebra fora da raiz.
+2. **Rotas** (App Router, todas estáticas):
+   `/` · `/sobre` · `/mentoria` · `/blog` · `/blog/[slug]`.
+   Âncoras na home: `#metodo` e `#areas` (scroll suave via Lenis, tratado em
+   `components/SmoothScroll.tsx` — não troque por scroll nativo, o Lenis intercepta).
+3. **WhatsApp (CTA principal)** — Número `5548999115698`, montado em
+   `app/content.ts` (`whatsappHref`, `mentoriaHref`). Todos os CTAs apontam para
+   `wa.me` com texto pré-preenchido. Troque o número lá se mudar.
+4. **E-mail / LinkedIn / Maps** — em `app/content.ts` (`person.email`,
+   `person.linkedin`, `person.mapsUrl`, `person.dirUrl`).
+5. **Deploy** — `.github/workflows/pages.yml` publica no GitHub Pages a cada push
+   na `main` (Actions faz o build; **não** buildar localmente em máquina limitada).
+   Em Vercel/Netlify: conectar o repo, framework Next.js detectado sozinho, e
+   **remover/zerar** o `NEXT_PUBLIC_BASE_PATH` se for domínio raiz.
+
+---
+
+## Stack
+
+- Next.js (App Router) · `output: "export"` (100% estático, sem servidor)
+- Lenis (smooth-scroll) · Canvas puro para o wordmark do rodapé
+- Tipografia: Manrope (display) · Inter (corpo) · IBM Plex Mono (dados)
+- Sem dependência de backend, banco ou API em runtime
 
 ## Rodar localmente
 
 ```bash
 npm install
-npm run dev      # abre em http://localhost:3000
+npm run dev      # http://localhost:3000  (basePath vazio em dev)
 ```
 
-## Gerar o site para publicar
+## Gerar build estático
 
 ```bash
-npm run build    # gera a pasta ./out com o site pronto
+NEXT_PUBLIC_BASE_PATH=/piero-garcia-site npm run build   # gera ./out
 ```
 
-A pasta `out/` é o site inteiro em arquivos estáticos. É só subir ela.
+`out/` é o site inteiro em arquivos estáticos. Para domínio raiz, rode sem o env.
 
-## Onde hospedar (grátis)
+## Onde está cada coisa
 
-- **Vercel** ou **Netlify**: conecte o repositório e pronto (detectam Next.js sozinhos).
-- **GitHub Pages / Cloudflare Pages**: suba o conteúdo de `out/`.
+| O quê | Arquivo |
+|---|---|
+| Todos os textos (hero, método, resultados, áreas, mentoria, FAQ, contato, nav) | `app/content.ts` |
+| Posts do blog (3) + capas | `app/posts.ts` · capas em `public/blog-*.webp` |
+| Depoimentos (hoje **placeholder** "em breve") | `app/content.ts` → `testimonials` |
+| Estilos globais + tokens de design | `app/globals.css` |
+| Componentes (hero, timeline, cards, rodapé…) | `components/` |
+| Imagens e vídeo do hero | `public/` |
+| Helper de basePath | `app/base.ts` |
 
-## Trocar a foto
+## Regras ao editar (verdade sempre)
 
-1. Coloque uma foto quadrada em boa resolução em `public/victor.jpg`.
-2. Em `app/page.tsx`, descomente a linha `<img src="/victor.jpg" ... />` dentro de `.plate` e apague/esconda o `<span className="monogram">`.
+- **Nunca** inventar depoimento, número ou case. Só o que for real e verificável.
+  Os depoimentos estão como placeholder — substituir pelos reais quando houver.
+- Imagem nova vai em `public/` (webp de preferência) e é referenciada com
+  `` `${BASE}/arquivo.webp` ``.
+- Não buildar `next build` em máquina com pouca RAM — deixe o Actions/Vercel buildar.
 
-## Editar textos
+## Arquivos de apoio
 
-Todo o conteúdo fica em `app/content.ts` — nome, bio, serviços, publicações e links. É só editar o texto.
-
----
-
-O **hero** tem um fundo vivo (canvas): uma rede de colônias/biofilme que reage ao cursor (`components/Biofilm.tsx`). Respeita `prefers-reduced-motion` (fica estático) e é leve (sem dependências). Algoritmo adaptado de "Constellation Field" (MengTo/threeui, MIT), recolorido para a identidade.
-
-A seção de **serviços** (consultório / palestras / consultoria) foi escrita a partir do perfil como um ponto de partida forte. Ajuste os textos e os canais de contato em `app/content.ts` para refletir exatamente o que o Victor oferece. As credenciais e publicações são reais (fontes no `profile.json`).
+- `MIGRATION-PROMPT.md` — prompt pronto para colar no seu agente de código ao migrar.
+- `LEIA-ME.txt` — explicação para o Piero (não-técnica).
