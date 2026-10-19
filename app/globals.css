@@ -336,7 +336,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.
 
 /* ---------- seção genérica ---------- */
 /* site10x: cada seção ocupa uma tela; conteúdo centralizado; snap no topo */
-.section { min-height: 100svh; padding: 88px 0; position: relative; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
+.section { min-height: 100svh; padding: 64px 0; position: relative; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
 .section > .wrap { width: min(var(--wrap), 92vw); }
 .section-head { max-width: 720px; margin-bottom: 32px; }
 .section-head h2 { font-size: clamp(2rem, 4.6vw, 3.3rem); margin: 18px 0 0; }
@@ -353,7 +353,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.
 }
 .diff-card:hover { border-color: rgba(143,233,217,0.4); transform: translateY(-3px); }
 .diff-card .k { font-family: var(--font-display); font-size: 2.4rem; color: var(--orange); opacity: 0.55; line-height: 1; }
-.diff-card h3 { font-size: 1.4rem; margin: 14px 0 10px; }
+.diff-card h3 { font-size: 1.4rem; margin: 10px 0 8px; }
 .diff-card p { color: var(--ink-dim); margin: 0; font-size: 0.98rem; }
 .diff-card::after {
   content: ""; position: absolute; right: -40px; top: -40px; width: 120px; height: 120px;
