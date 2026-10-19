@@ -338,7 +338,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.
 /* site10x: cada seção ocupa uma tela; conteúdo centralizado; snap no topo */
 .section { min-height: 100svh; padding: 88px 0; position: relative; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
 .section > .wrap { width: min(var(--wrap), 92vw); }
-.section-head { max-width: 720px; margin-bottom: 48px; }
+.section-head { max-width: 720px; margin-bottom: 32px; }
 .section-head h2 { font-size: clamp(2rem, 4.6vw, 3.3rem); margin: 18px 0 0; }
 .section-head .lead { margin-top: 18px; }
 .section-head h2 .em { color: var(--muted); font-style: normal; font-weight: 800; }
@@ -552,11 +552,6 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 .sg-hint { font-family: var(--font-ui); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-top: 10px; animation: sg-bob 1.8s ease-in-out infinite; }
 @keyframes sg-bob { 50% { transform: translateY(4px); opacity: 0.6; } }
 
-.deck-mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
-.deck-mini .m { text-align: center; padding: 20px; border-left: 1px solid var(--line); }
-.deck-mini .m:first-child { border-left: 0; }
-.deck-mini .m b { display: block; font-family: var(--font-display); font-size: 2.2rem; color: var(--ink); }
-.deck-mini .m span { font-family: var(--font-ui); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 
 /* ---------- manifesto ---------- */
 /* manifesto "máquina de escrever" — sans grande, pinned, ocupando a largura */
@@ -771,7 +766,7 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 @media (max-width: 920px) {
   .nav-links { display: none; }
   .nav-toggle { display: inline-flex; }
-  .diff-grid, .pillars, .fan, .deck, .blog-grid, .compare-highlights, .deck-mini, .footer-top { grid-template-columns: 1fr; }
+  .diff-grid, .pillars, .fan, .deck, .blog-grid, .compare-highlights, .footer-top { grid-template-columns: 1fr; }
   .automation-layout, .sim, .about { grid-template-columns: 1fr; gap: 28px; }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   .compare-grid { grid-template-columns: 1fr; }
@@ -861,23 +856,6 @@ input[type="range"] { min-width: 0; }
   .tl-item.up .tl-card, .tl-item.down .tl-card { bottom: auto; top: auto; }
 }
 
-/* áreas — linhas alternadas com stat (features-2) */
-.feat-rows { display: flex; flex-direction: column; }
-.feat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 56px 0; border-top: 1px solid var(--line); }
-.feat-row:first-child { border-top: none; }
-.feat-row.rev .feat-text { order: 2; }
-.feat-text h3 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 14px 0 14px; }
-.feat-text > p { color: var(--ink-dim); max-width: 46ch; }
-.feat-bul { list-style: none; padding: 0; margin: 18px 0; display: flex; gap: 10px; flex-wrap: wrap; }
-.feat-bul li { font-family: var(--font-ui); font-size: 0.78rem; color: var(--ink-dim); border: 1px solid var(--line-strong); border-radius: 999px; padding: 6px 14px; }
-.feat-stat { font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink); letter-spacing: 0.02em; margin-top: 8px; }
-.feat-img { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line-strong); aspect-ratio: 16 / 11; }
-.feat-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-@media (max-width: 820px) {
-  .feat-row { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
-  .feat-row.rev .feat-text { order: 0; }
-}
-
 /* prova social — deck empilhado (stagger) */
 .stg { position: relative; max-width: 680px; margin: 0 auto; min-height: 290px; }
 .stg-card { position: absolute; inset: 0 0 auto 0; background: var(--bg-2); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 40px; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease; transform: translateY(calc(var(--off) * 20px)) scale(calc(1 - var(--off) * 0.05)); opacity: calc(1 - var(--off) * 0.4); }
@@ -965,3 +943,12 @@ input[type="range"] { min-width: 0; }
 .filme-sound[aria-pressed="true"]::before { opacity: 1; }
 .filme-sound:hover { background: rgba(11,18,16,0.72); border-color: var(--ink); }
 @media (max-width: 640px) { .filme-sound { bottom: 16px; right: 16px; padding: 9px 14px; } }
+
+/* Áreas — grade compacta (uma tela) */
+.area-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.area-card { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 24px; display: flex; flex-direction: column; gap: 8px; }
+.area-card h3 { font-size: clamp(1.1rem, 1.5vw, 1.45rem); margin: 4px 0 0; letter-spacing: -0.01em; }
+.area-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.45; flex: 1; margin: 0; }
+.area-stat { margin-top: 12px; font-weight: 700; color: var(--ink); font-size: 0.92rem; }
+@media (max-width: 900px) { .area-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; } .area-card { padding: 20px 18px; } }
+@media (max-width: 560px) { .area-card p { display: none; } .area-card { padding: 16px; gap: 4px; } .area-stat { margin-top: 6px; } }

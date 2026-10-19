@@ -110,27 +110,14 @@ export default function Home() {
             <h2>{portfolio.title}</h2>
             <p className="lead">{portfolio.lead}</p>
           </Reveal>
-          <div className="feat-rows">
-            {portfolio.items.map((a, i) => (
-              <Reveal key={a.slug} className={`feat-row${i % 2 ? " rev" : ""}`}>
-                <div className="feat-text">
-                  <span className="eyebrow">{a.kind}</span>
-                  <h3>{a.name}</h3>
-                  <p>{a.blurb}</p>
-                  <ul className="feat-bul">
-                    {a.tags.map((t) => <li key={t}>{t}</li>)}
-                  </ul>
-                  <div className="feat-stat">{a.metric}</div>
-                </div>
-                <div className="feat-img">
-                  <img src={`${BASE}/${a.img}`} alt="" loading="lazy" />
-                </div>
+          <div className="area-grid">
+            {portfolio.items.map((a) => (
+              <Reveal key={a.slug} className="area-card">
+                <span className="eyebrow">{a.kind}</span>
+                <h3>{a.name}</h3>
+                <p>{a.blurb}</p>
+                <div className="area-stat">{a.metric}</div>
               </Reveal>
-            ))}
-          </div>
-          <div className="deck-mini">
-            {portfolio.mini.map((m) => (
-              <StatCounter key={m.label} n={m.n} suffix={m.suffix} label={m.label} />
             ))}
           </div>
         </div>
