@@ -335,9 +335,14 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.
 .stat-label { font-family: var(--font-ui); font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
 
 /* ---------- seção genérica ---------- */
-/* site10x: cada seção ocupa uma tela; conteúdo centralizado; snap no topo */
-.section { min-height: 100svh; padding: 64px 0; position: relative; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
-.section > .wrap { width: min(var(--wrap), 92vw); }
+.section { padding: 64px 0; position: relative; }
+/* site10x: UMA SEÇÃO = UMA TELA — só em páginas de painéis (as que têm o hero full-screen).
+   Páginas de conteúdo corrido (bio, artigo) NÃO entram na regra: scrollam normal.
+   Escopo via :has() = sem JS e sem flash. */
+body:has(.anchor-hero) .section {
+  min-height: 100svh; padding: 64px 0; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start;
+}
+body:has(.anchor-hero) .section > .wrap { width: min(var(--wrap), 92vw); }
 .section-head { max-width: 720px; margin-bottom: 22px; }
 .section-head h2 { font-size: clamp(2rem, 4.6vw, 3.3rem); margin: 18px 0 0; }
 .section-head .lead { margin-top: 18px; }

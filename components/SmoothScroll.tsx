@@ -31,14 +31,18 @@ export default function SmoothScroll() {
     // Snap magnético: a rolagem assenta no topo de cada seção (uma seção = uma tela).
     // 'proximity' não prende seções que passam de uma tela; seções marcadas
     // data-snap="skip" ficam de fora. Ver CLAUDE.md do site-10x.
+    // Snap só em páginas de painéis (as que têm o hero full-screen). Páginas de
+    // conteúdo corrido (bio, artigo) scrollam normal, sem snap.
     // Desktop: mandatory (toda seção cabe em uma tela -> para certinho).
     // Mobile: proximity (seções com muitos cards podem passar de uma tela -> não prende).
-    const isDesktop = window.matchMedia("(min-width: 900px)").matches;
-    const snap = new Snap(lenis, { type: isDesktop ? "mandatory" : "proximity", duration: 0.9, distanceThreshold: "25%" });
-    const snapEls = Array.from(
-      document.querySelectorAll<HTMLElement>(".anchor-hero, .filme-full, .section")
-    ).filter((el) => el.dataset.snap !== "skip");
-    snapEls.forEach((el) => snap.addElement(el, { align: ["start"] }));
+    let snap: Snap | null = null;
+    if (document.querySelector(".anchor-hero")) {
+      const isDesktop = window.matchMedia("(min-width: 900px)").matches;
+      snap = new Snap(lenis, { type: isDesktop ? "mandatory" : "proximity", duration: 0.9, distanceThreshold: "25%" });
+      Array.from(document.querySelectorAll<HTMLElement>(".anchor-hero, .filme-full, .section"))
+        .filter((el) => el.dataset.snap !== "skip")
+        .forEach((el) => snap!.addElement(el, { align: ["start"] }));
+    }
 
     // Âncoras (#metodo, /#areas…): Lenis intercepta o scroll nativo, então
     // tratamos o clique manualmente com lenis.scrollTo (offset do header fixo).
@@ -63,7 +67,7 @@ export default function SmoothScroll() {
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener("click", onAnchorClick);
-      snap.destroy();
+      snap?.destroy();
       lenis.destroy();
     };
   }, []);
