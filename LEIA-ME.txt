@@ -1,0 +1,35 @@
+Piero, isto é um presente.
+
+Peguei seu LinkedIn e seu site atual e reconstruí a sua presença digital do zero —
+um site nível estúdio, pensado para VENDER: o diagnóstico gratuito (porta da
+consultoria) e a mentoria em grupo, usando os seus 25 anos, a ISO 9001 e os
+resultados reais como prova.
+
+O QUE É
+- Site estático em Next.js (rápido, sem servidor, sem custo de hospedagem).
+- Estilo cinematográfico e sóbrio ("clareza / operação estruturada"), dark,
+  tipografia Manrope. Vídeo no topo + seções em movimento (timeline, cards que
+  fluem, KPIs que contam, rodapé com o seu nome em pontilhado).
+- 100% em português, pensado para donos e gestores de médias empresas.
+
+JÁ NO AR
+  https://luisroquette-labs.github.io/piero-garcia-site/
+
+COMO EDITAR O CONTEÚDO
+- Praticamente tudo o que é texto está em: app/content.ts
+  (hero, problema, método, resultados, áreas, mentoria, FAQ, contato…).
+- Posts do blog: app/posts.ts
+- Depoimentos (hoje com placeholder "em breve"): app/content.ts → testimonials.
+  É só substituir pelos depoimentos reais dos seus clientes.
+- Fotos/assets: pasta public/.
+
+RODAR LOCAL (opcional)
+  npm install
+  npm run dev        → abre em http://localhost:3000
+  O deploy é automático: todo push na branch main publica no GitHub Pages.
+
+O que você precisa fazer de imediato: nada. Está no ar. Quando tiver depoimentos
+reais, me passa (ou peça pro seu time) que a gente troca o placeholder.
+
+Abraço,
+Luis
