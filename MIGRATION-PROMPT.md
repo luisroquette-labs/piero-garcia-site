@@ -13,9 +13,20 @@ quiser evoluir ou migrar configurações do site atual para este novo.
 - Conteúdo textual: `app/content.ts`
 - Posts do blog: `app/posts.ts` (capas em `public/blog-*.webp`)
 - Depoimentos (placeholder): `app/content.ts` → `testimonials`
-- Estilos globais: `app/globals.css`
+- Estilos globais + regra uma-seção-uma-tela: `app/globals.css`
+- Smooth-scroll + snap por seção + âncoras: `components/SmoothScroll.tsx`
+- Seção do filme (player full-bleed): `components/FilmeSection.tsx` (+ `public/filme-piero-*.mp4`, `public/filme-poster*.jpg`)
 - Componentes: `components/`
 - Imagens/assets: `public/`
+
+## Comportamentos que não são triviais (não quebre ao migrar)
+- **Uma seção = uma tela + snap magnético** só em páginas de painéis (a home): CSS
+  `body:has(.anchor-hero) .section { min-height:100svh; … }` + addon `lenis/snap` no
+  `SmoothScroll.tsx`. Páginas de conteúdo (sobre/artigo) ficam de fora e scrollam normal.
+- **Filme**: autoplay mudo em loop, toca só quando visível (IntersectionObserver),
+  16:9 no desktop e 9:16 no mobile (troca por `matchMedia`), botão "Ativar som".
+- **Build**: `.github/workflows/pages.yml` tem cache do `.next` + retry 3× (o `next/font`
+  estoura o fetch de fontes no runner às vezes). Mantenha.
 
 ## Mapa de rotas: site antigo (Lovable) → este site
 - `/servicos`, `/cases`, `/solucoes-tecnologicas`, `/eventos`, `/contato` do site atual

@@ -10,6 +10,11 @@ O QUE É
 - Estilo cinematográfico e sóbrio ("clareza / operação estruturada"), dark,
   tipografia Manrope. Vídeo no topo + seções em movimento (timeline, cards que
   fluem, KPIs que contam, rodapé com o seu nome em pontilhado).
+- Logo abaixo do topo tem um FILME de ~25 segundos (feito em motion design) que
+  conta a sua mensagem — do ruído do dia a dia ao método que organiza a operação.
+  Ele roda sozinho, sem som; tem um botão "Ativar som" pra ouvir a narração.
+- A rolagem "encaixa" uma seção de cada vez (cada tela é uma ideia), no computador
+  e no celular.
 - 100% em português, pensado para donos e gestores de médias empresas.
 
 JÁ NO AR
